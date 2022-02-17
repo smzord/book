@@ -1,5 +1,5 @@
-var lati='';
-var logi=''; 
+var lati='26.912434';
+var logi='75.787270'; 
 $(document).ready(function () {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
