@@ -69,6 +69,11 @@ $(document).ready(function () {
     $('#section2').show();
   });
 
+  $('#edit').click(function(){
+    $('#section1').show();
+    $('#section2').hide();
+  });
+
   $('#confirm_appoint').click(function(){
     $('#section2').hide();
     $('#section3').show();
