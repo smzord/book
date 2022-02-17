@@ -2,6 +2,19 @@
 #section3 {
   display: none;
 }
+.edit-page{
+    position: relative;
+}
+.edit-page button{
+    border: none;
+    background: none;
+    position: absolute;
+    right: 10px;
+    top: -22px;
+}
+.edit-page button img{
+    width: 18px;;
+}.
 .main-div {
   padding: 30px 10px;
   border: 1px solid rgb(202, 202, 202);

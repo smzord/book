@@ -1,4 +1,7 @@
+var lati='';
+var logi=''; 
 $(document).ready(function () {
+  getLocation();
   var myparams = getQueryParameters();
   $('#date').val(moment().format('YYYY-MM-DD'));
   var env = getCookie('env');
@@ -53,7 +56,7 @@ $(document).ready(function () {
         //   "state":myparams.state,
         //   "postalCode":myparams.postalCode,
         // }
-        "customerData": "{\r\n        \"customerId\": \""+myparams.id+"\",\r\n        \"fname\": \""+myparams.fname+"\",\r\n        \"lname\": \""+myparams.lname+"\"   }"
+        "customerData": "{\r\n\"customerId\" =\""+myparams.id+"\",\"fname\"=\""+myparams.fname+"\r\n\",\"lname\"=\""+myparams.lname+"\",\"phone\"=\""+myparams.phone+"\",\"email\"=\""+myparams.email+"\",\"lati\"=\""+lati+"\",\"logi\"=\""+logi+"\",\"street\"=\""+myparams.street+"\",\"city\"=\""+myparams.city+"\",\"state\"=\""+myparams.state+"\",\"postalCode\"=\""+myparams.postalCode+"\"}\r\n}"
       }),
       success: function (res) {
         console.log("==res==", res);
@@ -81,6 +84,18 @@ $(document).ready(function () {
   });
   
 });
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  lati = position.coords.latitude; logi = position.coords.longitude;
+}
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
