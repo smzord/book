@@ -43,6 +43,8 @@ $(document).ready(function () {
     }
 
     var updateData = {};
+    updateData.lati = lati;
+    updateData.logi = logi;
     if(myparams.id!=null){
       updateData.customerid = myparams.id;
     }if(myparams.fname!=null){
