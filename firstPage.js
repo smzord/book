@@ -16,6 +16,7 @@ $(document).ready(function () {
         opName: "Access Token",
         customerData: "{}",
       },
+      dataType:'json',
       success: function (res) {
         console.log("==res==", res);
       },
