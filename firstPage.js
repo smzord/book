@@ -141,8 +141,9 @@ function initialFirst(updateData,env){
       "cache-control": "no-cache",
     },
     success: function (res) {
-      res = JSON.parse(res);
       console.log("==res==", res);
+
+      //res = JSON.parse(res);
       var options = '';
       res.forEach(function(item) {
         options += '<option  value="'+item.Id+'">'+item.MasterLabel+'</option>';
