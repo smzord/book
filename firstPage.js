@@ -1,7 +1,8 @@
 $(document).ready(function () {
   var myparams = getQueryParameters();
   $('#date').val(moment().format('YYYY-MM-DD'));
-  if (myparams.id != null && myparams.phone != null && myparams.firstname != null) {
+  var env = getCookie('env');
+  if (myparams.id != null && myparams.phone != null && myparams.firstname != null && env == null) {
     $.ajax({
       async: true,
       crossDomain: false,
@@ -16,7 +17,8 @@ $(document).ready(function () {
         "customerData": "{}"
       }),
       success: function (res) {
-        console.log("==res==", res);
+        //console.log("==res==", res);
+        setCookie('env',res);
       },
       error: function (err) {
         console.log("==err==", err);
@@ -25,7 +27,28 @@ $(document).ready(function () {
   }
 });
 
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 function getQueryParameters() {
   var params = {};
