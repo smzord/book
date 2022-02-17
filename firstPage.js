@@ -34,6 +34,7 @@ $(document).ready(function () {
         success: function (res) {
           console.log("==res==", res);
           env = res;
+          initialFirst(env);
           setCookie('env',res,1);
         },
         error: function (err) {
@@ -67,70 +68,7 @@ $(document).ready(function () {
 
     //"opName": “Update Customer",
     if(env!=null && env!=''){
-      $.ajax({
-        async: true,
-        crossDomain: false,
-        url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer "+env,
-          "cache-control": "no-cache",
-        },
-        data: JSON.stringify({
-          "opName": "Update Customer",
-          "customerData": JSON.stringify(updateData)
-        }),
-        success: function (res) {
-          res = JSON.parse(res);
-          console.log("==res==", res);
-          var address = '';
-          if(res.Account!=undefined){
-            res = res.Account;
-            address += res.ShippingStreet ? res.ShippingStreet : '';
-            address += ', '+res.ShippingCity ? res.ShippingCity : '';
-            address += ', '+res.ShippingState ? res.ShippingState : '';
-            address += ', '+res.ShippingPostalCode ? res.ShippingPostalCode : '';
-          }else{
-            res = res.Lead;
-            address += res.Street ? res.Street : '';
-            address += ', '+res.City ? res.City : '';
-            address += ', '+res.State ? res.State : '';
-            address += ', '+res.PostalCode ? res.PostalCode : '';
-          }
-          $('.cname').text(res.Name);
-          $('.address').text(address);
-        },
-        error: function (err) {
-          console.log("==err==", err);
-        },
-      });
-
-      //get work types
-      $.ajax({
-        async: true,
-        crossDomain: false,
-        url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer "+env,
-          "cache-control": "no-cache",
-        },
-        success: function (res) {
-          res = JSON.parse(res);
-          console.log("==res==", res);
-          var options = '';
-          res.forEach(function(item) {
-            options += '<option  value="'+item.Id+'">'+item.MasterLabel+'</option>';
-          });
-          $('#worktype').append(options);
-        },
-        error: function (err) {
-          console.log("==err==", err);
-        },
-      });
-
+      initialFirst(env);
     }
 
    
@@ -153,7 +91,71 @@ $(document).ready(function () {
   
 });
 
+function initialFirst(env){
+  $.ajax({
+    async: true,
+    crossDomain: false,
+    url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+env,
+      "cache-control": "no-cache",
+    },
+    data: JSON.stringify({
+      "opName": "Update Customer",
+      "customerData": JSON.stringify(updateData)
+    }),
+    success: function (res) {
+      res = JSON.parse(res);
+      console.log("==res==", res);
+      var address = '';
+      if(res.Account!=undefined){
+        res = res.Account;
+        address += res.ShippingStreet ? res.ShippingStreet : '';
+        address += ', '+res.ShippingCity ? res.ShippingCity : '';
+        address += ', '+res.ShippingState ? res.ShippingState : '';
+        address += ', '+res.ShippingPostalCode ? res.ShippingPostalCode : '';
+      }else{
+        res = res.Lead;
+        address += res.Street ? res.Street : '';
+        address += ', '+res.City ? res.City : '';
+        address += ', '+res.State ? res.State : '';
+        address += ', '+res.PostalCode ? res.PostalCode : '';
+      }
+      $('.cname').text(res.Name);
+      $('.address').text(address);
+    },
+    error: function (err) {
+      console.log("==err==", err);
+    },
+  });
 
+  //get work types
+  $.ajax({
+    async: true,
+    crossDomain: false,
+    url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+env,
+      "cache-control": "no-cache",
+    },
+    success: function (res) {
+      res = JSON.parse(res);
+      console.log("==res==", res);
+      var options = '';
+      res.forEach(function(item) {
+        options += '<option  value="'+item.Id+'">'+item.MasterLabel+'</option>';
+      });
+      $('#worktype').append(options);
+    },
+    error: function (err) {
+      console.log("==err==", err);
+    },
+  });
+}
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
