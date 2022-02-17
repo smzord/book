@@ -5,7 +5,7 @@ $(document).ready(function () {
   var myparams = getQueryParameters();
   $('#date').val(moment().format('YYYY-MM-DD'));
   var env = getCookie('env');
-
+  console.log(env);
   if (myparams.id != null && myparams.phone != null && myparams.firstname != null) {
 
     //when env is null
@@ -57,7 +57,7 @@ $(document).ready(function () {
           //   "state":myparams.state,
           //   "postalCode":myparams.postalCode,
           // }
-          "customerData": "{\r\n\"customerId\" =\""+myparams.id+"\",\"fname\"=\""+myparams.fname+"\r\n\",\"lname\"=\""+myparams.lname+"\",\"phone\"=\""+myparams.phone+"\",\"email\"=\""+myparams.email+"\",\"lati\"=\""+lati+"\",\"logi\"=\""+logi+"\",\"street\"=\""+myparams.street+"\",\"city\"=\""+myparams.city+"\",\"state\"=\""+myparams.state+"\",\"postalCode\"=\""+myparams.postalCode+"\"}\r\n}"
+          "customerData": "{\r\n\"customerId\" :\""+myparams.id+"\",\"fname\":\""+myparams.fname+"\r\n\",\"lname\":\""+myparams.lname+"\",\"phone\":\""+myparams.phone+"\",\"email\":\""+myparams.email+"\",\"lati\":\""+lati+"\",\"logi\":\""+logi+"\",\"street\":\""+myparams.street+"\",\"city\":\""+myparams.city+"\",\"state\":\""+myparams.state+"\",\"postalCode\":\""+myparams.postalCode+"\"}\r\n}"
         }),
         success: function (res) {
           console.log("==res==", res);
