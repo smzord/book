@@ -14,7 +14,7 @@ $(document).ready(function () {
   console.log(env);
   console.log(lati);
   console.log(logi);
-  if (myparams.id != null && myparams.phone != null && myparams.firstname != null) {
+  if (myparams.id != null && myparams.phone != null && myparams.fname != null) {
 
     //when env is null
     if(env == null || env == ''){
