@@ -34,38 +34,41 @@ $(document).ready(function () {
     }
 
     //"opName": “Update Customer",
-    $.ajax({
-      async: true,
-      crossDomain: false,
-      url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "cache-control": "no-cache",
-      },
-      data: JSON.stringify({
-        "opName": "Update Customer",
-        // "customerData": {
-        //   "customerId":myparams.id,
-        //   "phone":myparams.phone,
-        //   "fname":myparams.fname,
-        //   "lname":myparams.lname,
-        //   "email":myparams.email,
-        //   "street":myparams.street,
-        //   "city":myparams.city,
-        //   "state":myparams.state,
-        //   "postalCode":myparams.postalCode,
-        // }
-        "customerData": "{\r\n\"customerId\" =\""+myparams.id+"\",\"fname\"=\""+myparams.fname+"\r\n\",\"lname\"=\""+myparams.lname+"\",\"phone\"=\""+myparams.phone+"\",\"email\"=\""+myparams.email+"\",\"lati\"=\""+lati+"\",\"logi\"=\""+logi+"\",\"street\"=\""+myparams.street+"\",\"city\"=\""+myparams.city+"\",\"state\"=\""+myparams.state+"\",\"postalCode\"=\""+myparams.postalCode+"\"}\r\n}"
-      }),
-      success: function (res) {
-        console.log("==res==", res);
-        
-      },
-      error: function (err) {
-        console.log("==err==", err);
-      },
-    });
+    if(env!=null && env!=''){
+      $.ajax({
+        async: true,
+        crossDomain: false,
+        url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "cache-control": "no-cache",
+        },
+        data: JSON.stringify({
+          "opName": "Update Customer",
+          // "customerData": {
+          //   "customerId":myparams.id,
+          //   "phone":myparams.phone,
+          //   "fname":myparams.fname,
+          //   "lname":myparams.lname,
+          //   "email":myparams.email,
+          //   "street":myparams.street,
+          //   "city":myparams.city,
+          //   "state":myparams.state,
+          //   "postalCode":myparams.postalCode,
+          // }
+          "customerData": "{\r\n\"customerId\" =\""+myparams.id+"\",\"fname\"=\""+myparams.fname+"\r\n\",\"lname\"=\""+myparams.lname+"\",\"phone\"=\""+myparams.phone+"\",\"email\"=\""+myparams.email+"\",\"lati\"=\""+lati+"\",\"logi\"=\""+logi+"\",\"street\"=\""+myparams.street+"\",\"city\"=\""+myparams.city+"\",\"state\"=\""+myparams.state+"\",\"postalCode\"=\""+myparams.postalCode+"\"}\r\n}"
+        }),
+        success: function (res) {
+          console.log("==res==", res);
+          
+        },
+        error: function (err) {
+          console.log("==err==", err);
+        },
+      });
+
+    }
   }
 
   $('#get_appoint').click(function(){
