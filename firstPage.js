@@ -111,15 +111,15 @@ function initialFirst(updateData,env){
       if(res.Account!=undefined){
         res = res.Account;
         address += res.ShippingStreet ? res.ShippingStreet : '';
-        address += ', '+res.ShippingCity ? res.ShippingCity : '';
-        address += ', '+res.ShippingState ? res.ShippingState : '';
-        address += ', '+res.ShippingPostalCode ? res.ShippingPostalCode : '';
+        address += res.ShippingCity ? ', '+res.ShippingCity : '';
+        address += res.ShippingState ?', '+ res.ShippingState : '';
+        address += res.ShippingPostalCode ?', '+ res.ShippingPostalCode : '';
       }else{
         res = res.Lead;
         address += res.Street ? res.Street : '';
-        address += ', '+res.City ? res.City : '';
-        address += ', '+res.State ? res.State : '';
-        address += ', '+res.PostalCode ? res.PostalCode : '';
+        address += res.City ? ', '+res.City : '';
+        address += res.State ? ', '+res.State : '';
+        address += res.PostalCode ?', '+ res.PostalCode : '';
       }
       $('.cname').text(res.Name);
       $('.address').text(address);
