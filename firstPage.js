@@ -25,8 +25,8 @@ $(document).ready(function() {
             success: function(res) {
                 console.log(res);
             },
-            error: function() {
-
+            error: function(err) {
+                         console.log(err);
 
             });
         //});
