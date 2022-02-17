@@ -42,15 +42,26 @@ $(document).ready(function () {
       });
     }
 
-    var updateData = "";
-    updateData += myparams.fname ? "\"fname\":\""+myparams.fname+"\"," : '';
-    updateData += myparams.lname ? "\"lname\":\""+myparams.lname+"\"," : '';
-    updateData += myparams.phone ? "\"phone\":\""+myparams.phone+"\"," : '';
-    updateData += myparams.email ? "\"email\":\""+myparams.email+"\"," : '';
-    updateData += myparams.street ? "\"street\":\""+myparams.street+"\"," : '';
-    updateData += myparams.city ? "\"city\":\""+myparams.city+"\"," : '';
-    updateData += myparams.state ? "\"state\":\""+myparams.state+"\"," : '';
-    updateData += myparams.postalCode ? "\"postalCode\":\""+myparams.postalCode+"\"" : '';
+    var updateData = {};
+    if(myparams.id!=null){
+      updateData.customerid = myparams.id;
+    }if(myparams.fname!=null){
+      updateData.fname = myparams.fname;
+    }if(myparams.lname!=null){
+      updateData.lname = myparams.lname;
+    }if(myparams.phone!=null){
+      updateData.phone = myparams.phone;
+    }if(myparams.email!=null){
+      updateData.email = myparams.email;
+    }if(myparams.street!=null){
+      updateData.street = myparams.street;
+    }if(myparams.city!=null){
+      updateData.city = myparams.city;
+    }if(myparams.state!=null){
+      updateData.state = myparams.state;
+    }if(myparams.postalCode!=null){
+      updateData.postalCode = myparams.postalCode;
+    }
 
     //"opName": “Update Customer",
     if(env!=null && env!=''){
@@ -77,7 +88,7 @@ $(document).ready(function () {
           //   "state":myparams.state,
           //   "postalCode":myparams.postalCode,
           // }
-          "customerData": "{\n  \"customerid\":\""+myparams.id+"\","+updateData+"}"
+          "customerData": JSON.stringify(updateData)
         }),
         success: function (res) {
           res = JSON.parse(res);
