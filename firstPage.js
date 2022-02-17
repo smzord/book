@@ -79,17 +79,6 @@ $(document).ready(function () {
         },
         data: JSON.stringify({
           "opName": "Update Customer",
-          // "customerData": {
-          //   "customerId":myparams.id,
-          //   "phone":myparams.phone,
-          //   "fname":myparams.fname,
-          //   "lname":myparams.lname,
-          //   "email":myparams.email,
-          //   "street":myparams.street,
-          //   "city":myparams.city,
-          //   "state":myparams.state,
-          //   "postalCode":myparams.postalCode,
-          // }
           "customerData": JSON.stringify(updateData)
         }),
         success: function (res) {
