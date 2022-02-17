@@ -64,6 +64,15 @@ $(document).ready(function () {
     });
   }
 
+  $('#get_appoint').click(function(){
+    $('#section1').hide();
+    $('#section2').show();
+  });
+
+  $('#confirm_appoint').click(function(){
+    $('#section2').hide();
+    $('#section3').show();
+  });
   
 });
 
