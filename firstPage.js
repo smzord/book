@@ -2,7 +2,35 @@ $(document).ready(function () {
   var myparams = getQueryParameters();
   $('#date').val(moment().format('YYYY-MM-DD'));
   var env = getCookie('env');
-  if (myparams.id != null && myparams.phone != null && myparams.firstname != null && env == null) {
+
+  if (myparams.id != null && myparams.phone != null && myparams.firstname != null) {
+
+    //when env is null
+    if(env == null){
+      $.ajax({
+        async: true,
+        crossDomain: false,
+        url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "cache-control": "no-cache",
+        },
+        data: JSON.stringify({
+          "opName": "Access Token",
+          "customerData": "{}"
+        }),
+        success: function (res) {
+          //console.log("==res==", res);
+          setCookie('env',res);
+        },
+        error: function (err) {
+          console.log("==err==", err);
+        },
+      });
+    }
+
+    //"opName": “Update Customer",
     $.ajax({
       async: true,
       crossDomain: false,
@@ -13,18 +41,30 @@ $(document).ready(function () {
         "cache-control": "no-cache",
       },
       data: JSON.stringify({
-        "opName": "Access Token",
-        "customerData": "{}"
+        "opName": "Update Customer",
+        "customerData": {
+          customerId:myparams.id,
+          phone:myparams.phone,
+          fname:myparams.fname,
+          lname:myparams.lname,
+          email:myparams.email,
+          street:myparams.street,
+          city:myparams.city,
+          state:myparams.state,
+          postalCode:myparams.postalCode,
+        }
       }),
       success: function (res) {
-        //console.log("==res==", res);
-        setCookie('env',res);
+        console.log("==res==", res);
+        
       },
       error: function (err) {
         console.log("==err==", err);
       },
     });
   }
+
+  
 });
 
 function setCookie(cname, cvalue, exdays) {
