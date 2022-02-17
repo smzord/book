@@ -121,6 +121,7 @@ function initialFirst(updateData,env){
         address += res.State ? ', '+res.State : '';
         address += res.PostalCode ?', '+ res.PostalCode : '';
       }
+      address = address!='' ? 'at '+address ? '';
       $('.cname').text(res.Name);
       $('.address').text(address);
     },
