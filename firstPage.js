@@ -42,14 +42,15 @@ $(document).ready(function () {
       });
     }
 
-    var fname = myparams.fname ? myparams.fname : '';
-    var lname = myparams.lname ? myparams.lname : '';
-    var phone = myparams.phone ? myparams.phone : '';
-    var email = myparams.email ? myparams.email : '';
-    var street = myparams.street ? myparams.street : '';
-    var city = myparams.city ? myparams.city : '';
-    var state = myparams.state ? myparams.state : '';
-    var postalCode = myparams.postalCode ? myparams.postalCode : '';
+    var updateData = "";
+    updateData += myparams.fname ? "\"fname\":\""+myparams.fname+"\"," : '';
+    updateData += myparams.lname ? "\"lname\":\""+myparams.lname+"\"," : '';
+    updateData += myparams.phone ? "\"phone\":\""+myparams.phone+"\"," : '';
+    updateData += myparams.email ? "\"email\":\""+myparams.email+"\"," : '';
+    updateData += myparams.street ? "\"street\":\""+myparams.street+"\"," : '';
+    updateData += myparams.city ? "\"city\":\""+myparams.city+"\"," : '';
+    updateData += myparams.state ? "\"state\":\""+myparams.state+"\"," : '';
+    updateData += myparams.postalCode ? "\"postalCode\":\""+myparams.postalCode+"\"" : '';
 
     //"opName": “Update Customer",
     if(env!=null && env!=''){
@@ -76,7 +77,7 @@ $(document).ready(function () {
           //   "state":myparams.state,
           //   "postalCode":myparams.postalCode,
           // }
-          "customerData": "{\n  \"customerid\":\""+myparams.id+"\",\"fname\":\""+fname+"\",\"lname\":\""+lname+"\",\"phone\":\""+phone+"\",\"email\":\""+email+"\",\"lati\":\""+lati+"\",\"logi\":\""+logi+"\",\"street\":\""+street+"\",\"city\":\""+city+"\",\"state\":\""+state+"\",\"postalCode\":\""+postalCode+"\"}"
+          "customerData": "{\n  \"customerid\":\""+myparams.id+"\","+updateData+"}"
         }),
         success: function (res) {
           res = JSON.parse(res);
