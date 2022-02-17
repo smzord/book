@@ -11,7 +11,7 @@ $(document).ready(function () {
   if (myparams.id != null && myparams.phone != null && myparams.firstname != null) {
 
     //when env is null
-    if(env == null){
+    if(env == null || env == ''){
       $.ajax({
         async: true,
         crossDomain: false,
