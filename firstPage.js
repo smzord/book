@@ -78,8 +78,8 @@ $(document).ready(function () {
           "customerData": "{\n  \"customerid\":\""+myparams.id+"\",\"fname\":\""+fname+"\",\"lname\":\""+lname+"\",\"phone\":\""+phone+"\",\"email\":\""+email+"\",\"lati\":\""+lati+"\",\"logi\":\""+logi+"\",\"street\":\""+street+"\",\"city\":\""+city+"\",\"state\":\""+state+"\",\"postalCode\":\""+postalCode+"\"}"
         }),
         success: function (res) {
-          console.log("==res==", res);
           res = JSON.parse(res);
+          console.log("==res==", res);
           $('.cname').text(res.Name);
         },
         error: function (err) {
