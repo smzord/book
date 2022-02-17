@@ -44,6 +44,7 @@ $(document).ready(function () {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer "+env,
           "cache-control": "no-cache",
         },
         data: JSON.stringify({
