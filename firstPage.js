@@ -79,7 +79,8 @@ $(document).ready(function () {
         }),
         success: function (res) {
           console.log("==res==", res);
-          
+          res = JSON.parse(res);
+          $('.cname').text(res.Name);
         },
         error: function (err) {
           console.log("==err==", err);
