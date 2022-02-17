@@ -106,7 +106,34 @@ $(document).ready(function () {
         },
       });
 
+      //get work types
+      $.ajax({
+        async: true,
+        crossDomain: false,
+        url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer "+env,
+          "cache-control": "no-cache",
+        },
+        success: function (res) {
+          res = JSON.parse(res);
+          console.log("==res==", res);
+          var options = '';
+          res.forEach(function(item) {
+            options += '<option  value="'+item.Id+'">'+item.Name+'</option>';
+          });
+          $('#worktype').append(options);
+        },
+        error: function (err) {
+          console.log("==err==", err);
+        },
+      });
+
     }
+
+   
   }
 
   $('#get_appoint').click(function(){
