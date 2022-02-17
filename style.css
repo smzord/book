@@ -1,0 +1,127 @@
+    .main-div{
+        padding: 30px 10px;
+        border: 1px solid rgb(202, 202, 202);
+        margin-bottom: 10px;
+        margin-top: 10%;
+    }
+    .main-div p{
+        font-size: 14px;
+        text-align: center;
+    }
+    .main-div span{
+        font-size: 12px;
+        text-align: center;
+        display: block;
+    }
+    .formAppointment{
+        margin-top: 25px;
+    }
+    .formAppointmentSection{
+        display: flex;
+        justify-content: space-around;
+        font-size: 14px;
+    }
+    .formAppointmentSection .form-group label{
+        color:#7a7a7a;
+    }
+    .formAppointment form .form-group .form-control{
+        outline: none;
+        box-shadow: none;
+        font-size: 14px;
+        margin-top: 6px;
+        width:200px;
+    }
+    .formAppointment form .form-group .form-control::placeholder{
+        font-size: 10px;
+        color:#7a7a7a;
+    }
+   .appointBtn{
+        background: rgb(27, 150, 255);
+        color: #fff;
+        font-size: 14px;
+        border: none;
+        padding: 5px 15px;
+        margin: 15px auto;
+        display: block;
+        border-radius: 6px;
+   }
+    .appointBtn:hover{
+        background:#032d60;
+    }
+    .main-div-heading h2{
+        text-align: center;
+        color: #ff6347;
+        font-weight: 700;
+        font-size: 16px;
+    }
+    .TopBtn{
+        display: flex;
+        justify-content: center;
+    }
+    .TopBtn button{
+        border: 1px solid #eee;
+        background: transparent;
+        padding: 7px 14px;
+        font-size: 13px;
+        color: #007bff;
+    }
+    .time-section-main{
+        width: 60%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 20px auto;
+    }
+    .time-selection{
+        padding: 15px 0;
+        background: #C0C0C0;
+        border-radius: 5px 5px 0 0;
+    }
+    .time-selection h4{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        margin: auto;
+        font-size: 13px;
+        color: #032d60;
+        font-weight: 400;
+    }
+    .choose-time ul{
+        padding: 0;
+        margin: 0;
+        height: 150px;
+        overflow-y: scroll;
+    }
+    .choose-time ul li{
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+        padding: 10px 0;
+        font-size: 15px;
+        list-style-type: none;
+        text-align: center;
+    }
+    .responseImg{
+        text-align: center;
+    }
+
+    @media screen and (max-width:990px) and (min-width:768px){
+        .formAppointmentSection{
+            flex-direction: column;
+        }
+        .formAppointmentSection .form-group input, .formAppointmentSection .form-group select{
+            width:100% !important;
+        } 
+    }
+    @media only screen and (max-width:600px){
+        .formAppointmentSection{
+            flex-direction: column;
+        }
+        .formAppointmentSection .form-group{
+            margin-bottom: 15px;
+        }
+        .formAppointmentSection .form-group input, .formAppointmentSection .form-group select{
+            width:100% !important;
+        }
+    }
+   
+   
