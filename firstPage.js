@@ -6,6 +6,8 @@ $(document).ready(function () {
   $('#date').val(moment().format('YYYY-MM-DD'));
   var env = getCookie('env');
   console.log(env);
+  console.log(lati);
+  console.log(logi);
   if (myparams.id != null && myparams.phone != null && myparams.firstname != null) {
 
     //when env is null
