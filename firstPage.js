@@ -11,11 +11,10 @@ $(document).ready(function () {
         "Content-Type": "application/json",
         "cache-control": "no-cache",
       },
-      data: {
-        opName: "Access Token",
-        customerData: "{}",
-      },
-      dataType:'json',
+      data: JSON.stringify({
+        "opName": "Access Token",
+        "customerData": "{}"
+      }),
       success: function (res) {
         console.log("==res==", res);
       },
