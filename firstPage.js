@@ -122,7 +122,7 @@ $(document).ready(function () {
           console.log("==res==", res);
           var options = '';
           res.forEach(function(item) {
-            options += '<option  value="'+item.Id+'">'+item.Name+'</option>';
+            options += '<option  value="'+item.Id+'">'+item.MasterLabel+'</option>';
           });
           $('#worktype').append(options);
         },
