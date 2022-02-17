@@ -1,7 +1,13 @@
 var lati='';
 var logi=''; 
 $(document).ready(function () {
-  getLocation();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      lati = position.coords.latitude; logi = position.coords.longitude;
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
   var myparams = getQueryParameters();
   $('#date').val(moment().format('YYYY-MM-DD'));
   var env = getCookie('env');
@@ -91,17 +97,7 @@ $(document).ready(function () {
   
 });
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
-}
 
-function showPosition(position) {
-  lati = position.coords.latitude; logi = position.coords.longitude;
-}
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
