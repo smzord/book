@@ -28,7 +28,7 @@ $(document).ready(function () {
 
 
 
-getQueryParameters() {
+function getQueryParameters() {
   var params = {};
   var search = location.search.substring(1);
   if (search) {
@@ -39,7 +39,7 @@ getQueryParameters() {
   return params;
 }
 
-getHeaders() {
+function getHeaders() {
   var req = new XMLHttpRequest();
   req.open('GET', document.location, false);
   req.send(null);
