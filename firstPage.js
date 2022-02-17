@@ -41,6 +41,15 @@ $(document).ready(function () {
       });
     }
 
+    var fname = myparams.fname ? myparams.fname : '';
+    var lname = myparams.lname ? myparams.lname : '';
+    var phone = myparams.phone ? myparams.phone : '';
+    var email = myparams.email ? myparams.email : '';
+    var street = myparams.street ? myparams.street : '';
+    var city = myparams.city ? myparams.city : '';
+    var state = myparams.state ? myparams.state : '';
+    var postalCode = myparams.postalCode ? myparams.postalCode : '';
+
     //"opName": “Update Customer",
     if(env!=null && env!=''){
       $.ajax({
@@ -66,7 +75,7 @@ $(document).ready(function () {
           //   "state":myparams.state,
           //   "postalCode":myparams.postalCode,
           // }
-          "customerData": "{\r\n\"customerId\" :\""+myparams.id+"\",\"fname\":\""+myparams.fname+"\r\n\",\"lname\":\""+myparams.lname+"\",\"phone\":\""+myparams.phone+"\",\"email\":\""+myparams.email+"\",\"lati\":\""+lati+"\",\"logi\":\""+logi+"\",\"street\":\""+myparams.street+"\",\"city\":\""+myparams.city+"\",\"state\":\""+myparams.state+"\",\"postalCode\":\""+myparams.postalCode+"\"}\r\n}"
+          "customerData": "{\n  \"customerid\":\""+myparams.id+"\",\"fname\":\""+fname+"\",\"lname\":\""+lname+"\",\"phone\":\""+phone+"\",\"email\":\""+email+"\",\"lati\":\""+lati+"\",\"logi\":\""+logi+"\",\"street\":\""+street+"\",\"city\":\""+city+"\",\"state\":\""+state+"\",\"postalCode\":\""+postalCode+"\"}"
         }),
         success: function (res) {
           console.log("==res==", res);
