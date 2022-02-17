@@ -21,8 +21,8 @@ $(document).ready(function () {
           "customerData": "{}"
         }),
         success: function (res) {
-          //console.log("==res==", res);
-          setCookie('env',res);
+          console.log("==res==", res);
+          setCookie('env',res,1);
         },
         error: function (err) {
           console.log("==err==", err);
@@ -42,17 +42,18 @@ $(document).ready(function () {
       },
       data: JSON.stringify({
         "opName": "Update Customer",
-        "customerData": {
-          "customerId":myparams.id,
-          "phone":myparams.phone,
-          "fname":myparams.fname,
-          "lname":myparams.lname,
-          "email":myparams.email,
-          "street":myparams.street,
-          "city":myparams.city,
-          "state":myparams.state,
-          "postalCode":myparams.postalCode,
-        }
+        // "customerData": {
+        //   "customerId":myparams.id,
+        //   "phone":myparams.phone,
+        //   "fname":myparams.fname,
+        //   "lname":myparams.lname,
+        //   "email":myparams.email,
+        //   "street":myparams.street,
+        //   "city":myparams.city,
+        //   "state":myparams.state,
+        //   "postalCode":myparams.postalCode,
+        // }
+        "customerData": "{\r\n        \"customerId\": \""+myparams.id+"\",\r\n        \"fname\": \""+myparams.fname+"\",\r\n        \"lname\": \""+myparams.lname+"\"   }"
       }),
       success: function (res) {
         console.log("==res==", res);
