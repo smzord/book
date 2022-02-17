@@ -33,6 +33,7 @@ $(document).ready(function () {
         }),
         success: function (res) {
           console.log("==res==", res);
+          env = res;
           setCookie('env',res,1);
         },
         error: function (err) {
