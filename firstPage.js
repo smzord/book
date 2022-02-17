@@ -1,6 +1,6 @@
 $(document).ready(function () {
   var myparams = getQueryParameters();
-  $('#date').value(moment().format('YYYY-MM-DD'));
+  $('#date').val(moment().format('YYYY-MM-DD'));
   if (myparams.id != null && myparams.phone != null && myparams.firstname != null) {
     $.ajax({
       async: true,
