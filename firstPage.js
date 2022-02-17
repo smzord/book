@@ -15,34 +15,6 @@ $(document).ready(function () {
   console.log(lati);
   console.log(logi);
   if (myparams.id != null && myparams.phone != null && myparams.fname != null) {
-
-    //when env is null
-    if(env == null || env == ''){
-      $.ajax({
-        async: true,
-        crossDomain: false,
-        url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "cache-control": "no-cache",
-        },
-        data: JSON.stringify({
-          "opName": "Access Token",
-          "customerData": "{}"
-        }),
-        success: function (res) {
-          console.log("==res==", res);
-          env = res;
-          initialFirst(env);
-          setCookie('env',res,1);
-        },
-        error: function (err) {
-          console.log("==err==", err);
-        },
-      });
-    }
-
     var updateData = {};
     updateData.lati = lati;
     updateData.logi = logi;
@@ -65,10 +37,36 @@ $(document).ready(function () {
     }if(myparams.postalCode!=null){
       updateData.postalCode = myparams.postalCode;
     }
+    //when env is null
+    if(env == null || env == ''){
+      $.ajax({
+        async: true,
+        crossDomain: false,
+        url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "cache-control": "no-cache",
+        },
+        data: JSON.stringify({
+          "opName": "Access Token",
+          "customerData": "{}"
+        }),
+        success: function (res) {
+          console.log("==res==", res);
+          env = res;
+          initialFirst(updateData,env);
+          setCookie('env',res,1);
+        },
+        error: function (err) {
+          console.log("==err==", err);
+        },
+      });
+    }
 
     //"opName": “Update Customer",
     if(env!=null && env!=''){
-      initialFirst(env);
+      initialFirst(updateData,env);
     }
 
    
@@ -91,7 +89,7 @@ $(document).ready(function () {
   
 });
 
-function initialFirst(env){
+function initialFirst(updateData,env){
   $.ajax({
     async: true,
     crossDomain: false,
