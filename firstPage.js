@@ -182,6 +182,7 @@ function getAppoint(env,data) {
     },
   });
 }
+
 function initialFirst(updateData, env) {
   $.ajax({
     async: true,
