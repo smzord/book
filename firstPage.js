@@ -75,7 +75,7 @@ $(document).ready(function () {
         error: function (err) {
           console.log("==err==", err);
         },
-      });
+      }); 
     }
 
     //"opName": “Update Customer",
@@ -84,7 +84,7 @@ $(document).ready(function () {
     }
   }else{
     $('.loader').hide();
-    $('#MainComp').html('<div class="no_params">\
+    $('#MainComp').html('<div class="no_params" style="text-align: center;">\
         <img src="img/panda.png" />\
         <p><h2>Parameters are incomplete..</h2></p>\
     </div>');
