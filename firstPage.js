@@ -82,6 +82,11 @@ $(document).ready(function () {
     if (env != null && env != "") {
       initialFirst(updateData, env);
     }
+  }else{
+    $('#MainComp').html('<div class="no_params">\
+        <img src="img/panda.png" />\
+        <p><h2>Parameters are incomplete..</h2></p>\
+    </div>');
   }
 
   $("#get_appoint").click(function () {
