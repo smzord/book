@@ -14,6 +14,7 @@ $(document).ready(function () {
   $("#date").val(moment().format("YYYY-MM-DD"));
   var env = getCookie("env");
   var dateWTBind = [];
+  var workType = '';
   var workTypeNDays;
   console.log(env);
   console.log(lati);
@@ -98,10 +99,10 @@ $(document).ready(function () {
     dateWTBind[firstday] = 'firstday';
     dateWTBind[dayafter] = 'dayafter';
     dateWTBind[dayafterwt] = 'dayafterwt';
-    var workType = $('#worktype').val();
     workTypeNDays = mapIdDays[workType];
     console.log("===workTypeNDays==="+workTypeNDays);
-    $('.wtbutton').text(mapIdDays[workType] + ' DAYS AFTER SELECTED').show();
+    console.log("===mapIdDays==="+mapIdDays);
+    if(workType!='') $('.wtbutton').text(mapIdDays[workType] + ' DAYS AFTER SELECTED').show();
     var data = JSON.stringify({
       "customerId":myparams.Id,
       "dt":thisdate,
@@ -127,7 +128,7 @@ $(document).ready(function () {
   $('#worktype').change(function(){
     if($(this).val()!=''){
       $('.wtbutton').show();
-      var workType = $('#worktype').val();
+      workType = $('#worktype').val();
       workTypeNDays = mapIdDays[workType];
     }else{
       $('.wtbutton').hide();
