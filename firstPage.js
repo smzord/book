@@ -56,7 +56,7 @@ $(document).ready(function () {
           console.log("==res==", res);
           env = res;
           initialFirst(updateData,env);
-          setCookie('env',res,1);
+          setCookie('env',res,0.5);
         },
         error: function (err) {
           console.log("==err==", err);
