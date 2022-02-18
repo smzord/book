@@ -1,12 +1,13 @@
 var lati = "26.912434";
 var logi = "75.787270";
 var mapIdDays = {};
+var serviceId = "";
 $(document).ready(function () {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       lati = position.coords.latitude;
       logi = position.coords.longitude;
-      console.log('==position.coords=='+JSON.stringify(position.coords));
+      console.log("==position.coords==" + JSON.stringify(position.coords));
     });
   } else {
     console.log("Geolocation is not supported by this browser.");
@@ -15,7 +16,7 @@ $(document).ready(function () {
   $("#date").val(moment().format("YYYY-MM-DD"));
   var env = getCookie("env");
   var dateWTBind = [];
-  var workType = '';
+  var workType = "";
   var workTypeNDays;
   console.log(env);
   console.log(lati);
@@ -75,55 +76,61 @@ $(document).ready(function () {
         error: function (err) {
           console.log("==err==", err);
         },
-      }); 
+      });
     }
 
     //"opName": “Update Customer",
     if (env != null && env != "") {
       initialFirst(updateData, env);
     }
-  }else{
-    $('.loader').hide();
-    $('#MainComp').html('<div class="no_params" style="text-align: center;">\
+  } else {
+    $(".loader").hide();
+    $("#MainComp").html(
+      '<div class="no_params" style="text-align: center;">\
         <img src="img/panda.png" />\
         <p><h2>Parameters are incomplete..</h2></p>\
-    </div>');
+    </div>'
+    );
   }
 
   $("#get_appoint").click(function () {
     $(".loader").show();
     $("#section1").hide();
     $("#section2").show();
-    var thisdate = $('#date').val();
-    console.log('==thisdate==='+thisdate);
-    var firstday = moment(thisdate).format('YYYY-MM-DD');
-    var dayafter = moment(thisdate).add(1,'days').format('YYYY-MM-DD');
-    if(workTypeNDays!=null){
-        var dayafterwt = moment(thisdate).add(workTypeNDays,'days').format('YYYY-MM-DD');
-    }else{
-        var dayafterwt = '';
+    var thisdate = $("#date").val();
+    console.log("==thisdate===" + thisdate);
+    var firstday = moment(thisdate).format("YYYY-MM-DD");
+    var dayafter = moment(thisdate).add(1, "days").format("YYYY-MM-DD");
+    if (workTypeNDays != null) {
+      var dayafterwt = moment(thisdate)
+        .add(workTypeNDays, "days")
+        .format("YYYY-MM-DD");
+    } else {
+      var dayafterwt = "";
     }
-    dateWTBind[firstday] = 'firstday';
-    dateWTBind[dayafter] = 'dayafter';
-    dateWTBind[dayafterwt] = 'dayafterwt';
+    dateWTBind[firstday] = "firstday";
+    dateWTBind[dayafter] = "dayafter";
+    dateWTBind[dayafterwt] = "dayafterwt";
     workTypeNDays = mapIdDays[workType];
-    console.log("===workTypeNDays==="+workTypeNDays);
-    console.log("===mapIdDays==="+JSON.stringify(mapIdDays));
-    if(workType!=''){
-      $('.wtbutton').text(mapIdDays[workType] + ' DAYS AFTER SELECTED').show();
-    }else{
-      $('.wtbutton').hide();
+    console.log("===workTypeNDays===" + workTypeNDays);
+    console.log("===mapIdDays===" + JSON.stringify(mapIdDays));
+    if (workType != "") {
+      $(".wtbutton")
+        .text(mapIdDays[workType] + " DAYS AFTER SELECTED")
+        .show();
+    } else {
+      $(".wtbutton").hide();
     }
     if (myparams.id != null && thisdate != null) {
       var data = {
-        "customerId":myparams.id,
-        "dt":thisdate,
-        "workTypeId":workType,
-        "lati":lati.toString(),
-        "logi":logi.toString(),
+        customerId: myparams.id,
+        dt: thisdate,
+        workTypeId: workType,
+        lati: lati.toString(),
+        logi: logi.toString(),
       };
-      console.log('==data=='+data);
-      getAppoint(env,data);
+      console.log("==data==" + data);
+      getAppoint(env, data);
     }
   });
 
@@ -137,16 +144,15 @@ $(document).ready(function () {
     $("#section3").show();
   });
 
-  $('#worktype').change(function(){
-    if($(this).val()!=''){
-      $('.wtbutton').show();
-      workType = $('#worktype').val();
+  $("#worktype").change(function () {
+    if ($(this).val() != "") {
+      $(".wtbutton").show();
+      workType = $("#worktype").val();
       workTypeNDays = mapIdDays[workType];
-    }else{
-      $('.wtbutton').hide();
+    } else {
+      $(".wtbutton").hide();
     }
   });
-
 });
 
 //show all time slots card
@@ -169,7 +175,7 @@ function showWtSlot() {
   $('div[data-wtd="dayafterwt"]').show();
 }
 
-function getAppoint(env,data) {
+function getAppoint(env, data) {
   $.ajax({
     async: true,
     crossDomain: false,
@@ -184,9 +190,32 @@ function getAppoint(env,data) {
       opName: "Get Appointment",
       customerData: JSON.stringify(data),
     }),
-    success: function (res) {
-      //res = JSON.parse(res);
-      console.log("==res==", res);
+    success: function (result) {
+      result = JSON.parse(result);
+      console.log("==res==", result);
+      var timeslotjson = []; var indv = 0;
+      for (let key in result) {
+        var datev = window.moment(key).format("YYYY-MM-DD");
+        var displaydatev = window.moment(key).format("dddd, MMMM D, YYYY");
+        var tsinloop = [];
+        if (Array.isArray(result[key])) {
+          for (let k2 in result[key]) {
+            indv++;
+            var split = result[key][k2].split("---");
+            var startv = split[0].replace(":00.000Z", "");
+            var endv = split[1].replace(":00.000Z", "");
+            var sidv = split[2];
+            tsinloop.push({ ind: indv, start: startv, end: endv, sid: sidv });
+          }
+        }
+        timeslotjson.push({
+          date: datev,
+          displayDate: displaydatev,
+          cssclass: this.dateWTBind[datev],
+          timeslots: tsinloop,
+        });
+        console.log(timeslotjson);
+      }
       $(".loader").hide();
     },
     error: function (err) {
@@ -258,7 +287,7 @@ function initialFirst(updateData, env) {
       res.forEach(function (item) {
         options +=
           '<option  value="' + item.Id + '">' + item.MasterLabel + "</option>";
-          mapIdDays[item.Id] = item.Number_Of_Days_Out__c;
+        mapIdDays[item.Id] = item.Number_Of_Days_Out__c;
       });
       $("#worktype").append(options);
     },
