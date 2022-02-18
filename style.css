@@ -8,6 +8,9 @@
     padding: 25%;
     background: #ffffff7a;
 }
+.cname{
+  text-transform: capitalize;
+}
 .loader img{
     width: 70px;
 }

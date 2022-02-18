@@ -201,6 +201,12 @@ function getAppoint(env, data) {
           var datev = moment(key).format("YYYY-MM-DD");
           var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
           var tsinloop = [];
+          slotsHtml += '<div class="time-section-main timeslotloop" data-wtd="'+dateWTBind[datev]+'" key="'+key+'">\
+                          <div class="time-selection">\
+                              <h4>'+displaydatev+'</h4>\
+                          </div>\
+                          <div class="choose-time">\
+                                        <ul>';
           if (Array.isArray(TimeSlots[key])) {
             for (let k2 in TimeSlots[key]) {
               indv++;
@@ -208,21 +214,25 @@ function getAppoint(env, data) {
               var startv = split[0].replace(":00.000Z", "");
               var endv = split[1].replace(":00.000Z", "");
               var sidv = split[2];
-              tsinloop.push({ ind: indv, start: startv, end: endv, sid: sidv });
+              //tsinloop.push({ ind: indv, start: startv, end: endv, sid: sidv });
+              slotsHtml += '<li key="'+indv+'" onclick="selectSlot()" data-index="'+indv+'"\
+													data-date="'+datev+'" data-start="'+startv+'" data-end="'+endv+'" data-sid="'+sidv+'">\
+													'+startv+' - '+endv+'</li>';
             }
+          }else{
+            slotsHtml += '<li>No Slots Available!</li>';
           }
-          timeslotjson.push({
-            date: datev,
-            displayDate: displaydatev,
-            cssclass: dateWTBind[datev],
-            timeslots: tsinloop,
-          });
+          // timeslotjson.push({date: datev,displayDate: displaydatev,cssclass: dateWTBind[datev],timeslots: tsinloop});
           console.log(timeslotjson);
+          slotsHtml += '</ul>\
+                  </div>\
+                </div>';
         }
       }else{
         slotsHtml = '<div class="no_params" style="text-align: center;">\
           <p><h2>No Time Slots!</h2></p>\
         </div>';
+        $('#confirm_appoint').hide();
       }
       $(".loader").hide();
       $('#slotsArea').html(slotsHtml);
@@ -230,6 +240,11 @@ function getAppoint(env, data) {
     error: function (err) {
       console.log("==err==", err);
       $(".loader").hide();
+      $('#slotsArea').html('<div class="no_params" style="text-align: center;">\
+        <p><h2>No Time Slots!</h2></p>\
+      </div>');
+      $('#confirm_appoint').hide();
+
     },
   });
 }
