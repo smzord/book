@@ -195,8 +195,8 @@ function getAppoint(env, data) {
       console.log("==res==", result);
       var timeslotjson = []; var indv = 0;
       for (let key in result) {
-        var datev = window.moment(key).format("YYYY-MM-DD");
-        var displaydatev = window.moment(key).format("dddd, MMMM D, YYYY");
+        var datev = moment(key).format("YYYY-MM-DD");
+        var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
         var tsinloop = [];
         if (Array.isArray(result[key])) {
           for (let k2 in result[key]) {
@@ -211,7 +211,7 @@ function getAppoint(env, data) {
         timeslotjson.push({
           date: datev,
           displayDate: displaydatev,
-          cssclass: this.dateWTBind[datev],
+          cssclass: dateWTBind[datev],
           timeslots: tsinloop,
         });
         console.log(timeslotjson);
