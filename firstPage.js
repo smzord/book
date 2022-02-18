@@ -115,13 +115,13 @@ $(document).ready(function () {
       $('.wtbutton').hide();
     }
     if (myparams.id != null && thisdate != null) {
-      var data = JSON.stringify({
+      var data = {
         "customerId":myparams.id,
         "dt":thisdate,
         "workTypeId":workType,
         "lati":lati.toString(),
         "logi":logi.toString(),
-      });
+      };
       console.log('==data=='+data);
       getAppoint(env,data);
     }
