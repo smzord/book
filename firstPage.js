@@ -83,6 +83,7 @@ $(document).ready(function () {
       initialFirst(updateData, env);
     }
   }else{
+    $('.loader').hide();
     $('#MainComp').html('<div class="no_params">\
         <img src="img/panda.png" />\
         <p><h2>Parameters are incomplete..</h2></p>\
