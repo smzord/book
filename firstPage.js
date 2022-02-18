@@ -278,7 +278,6 @@ function getAppoint(env, data) {
         for (let key in TimeSlots) {
           var datev = moment(key).format("YYYY-MM-DD");
           console.log('==dayafterwt=='+dayafterwt);
-          if(dayafter!=datev){ $('.dabutton').hide(); }else{ $('.dabutton').show(); }
           if(dayafterwt!=datev){ $('.wtbutton').hide(); }else{ $('.wtbutton').show(); }
           var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
           var tsinloop = [];
