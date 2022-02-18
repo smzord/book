@@ -2,6 +2,11 @@ var lati = "26.912434";
 var logi = "75.787270";
 var mapIdDays = {};
 var serviceId = "";
+var myparams = getQueryParameters();
+var env = getCookie("env");
+var dateWTBind = [];
+var workType = "";
+var workTypeNDays;
 $(document).ready(function () {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -12,12 +17,7 @@ $(document).ready(function () {
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
-  var myparams = getQueryParameters();
   $("#date").val(moment().format("YYYY-MM-DD"));
-  var env = getCookie("env");
-  var dateWTBind = [];
-  var workType = "";
-  var workTypeNDays;
   console.log(env);
   console.log(lati);
   console.log(logi);
@@ -193,7 +193,8 @@ function getAppoint(env, data) {
     success: function (result) {
       result = JSON.parse(result);
       console.log("==res==", result);
-      var timeslotjson = []; var indv = 0;
+      var timeslotjson = [];
+      var indv = 0;
       for (let key in result) {
         var datev = moment(key).format("YYYY-MM-DD");
         var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
