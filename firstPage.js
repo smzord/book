@@ -102,7 +102,11 @@ $(document).ready(function () {
     workTypeNDays = mapIdDays[workType];
     console.log("===workTypeNDays==="+workTypeNDays);
     console.log("===mapIdDays==="+mapIdDays);
-    if(workType!='') $('.wtbutton').text(mapIdDays[workType] + ' DAYS AFTER SELECTED').show();
+    if(workType!=''){
+      $('.wtbutton').text(mapIdDays[workType] + ' DAYS AFTER SELECTED').show();
+    }else{
+      $('.wtbutton').hide();
+    }
     var data = JSON.stringify({
       "customerId":myparams.Id,
       "dt":thisdate,
