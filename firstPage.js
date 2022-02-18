@@ -101,7 +101,7 @@ $(document).ready(function () {
     dateWTBind[dayafterwt] = 'dayafterwt';
     workTypeNDays = mapIdDays[workType];
     console.log("===workTypeNDays==="+workTypeNDays);
-    console.log("===mapIdDays==="+mapIdDays);
+    console.log("===mapIdDays==="+JSON.stringify(mapIdDays));
     if(workType!=''){
       $('.wtbutton').text(mapIdDays[workType] + ' DAYS AFTER SELECTED').show();
     }else{
