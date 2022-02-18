@@ -12,14 +12,14 @@ var appEndDateTime;
 var options = {
   enableHighAccuracy: true,
   timeout: 5000,
-  maximumAge: 0,
+  maximumAge: 0
 };
 
 function success(pos) {
   var crd = pos.coords;
   lati = crd.latitude;
   logi = crd.longitude;
-  console.log("Your current position is:");
+  console.log('Your current position is:');
   console.log(`Latitude : ${crd.latitude}`);
   console.log(`Longitude: ${crd.longitude}`);
   console.log(`More or less ${crd.accuracy} meters.`);
@@ -29,6 +29,7 @@ function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 $(document).ready(function () {
+  
   navigator.geolocation.getCurrentPosition(success, error, options);
   $("#date").val(moment().format("YYYY-MM-DD"));
   console.log(env);
@@ -155,29 +156,21 @@ $(document).ready(function () {
   });
 
   $("#edit").click(function () {
-    $("#section1").show();
-    $("#section2").hide();
+    $("#section1").show(); $("#section2").hide();
   });
 
   $("#confirm_appoint").click(function () {
-    if (
-      serviceId != null &&
-      appStartDateTime != null &&
-      appEndDateTime != null
-    ) {
+    if (serviceId!=null && appStartDateTime != null && appEndDateTime != null) {
       $(".loader").show();
-      $("#section2").hide();
-      $("#section3").show();
+      $("#section2").hide(); $("#section3").show();
       var data = {
-        serviceId: serviceId,
-        startTime: appStartDateTime,
-        endTime: appEndDateTime,
+        "serviceId":serviceId,
+        "startTime":appStartDateTime,
+        "endTime":appEndDateTime
       };
-      confirmAppoint(env, data);
-    } else {
-      $(".validateMsg p").text(
-        "Please select Time slot to confirm the appointment!"
-      );
+      confirmAppoint(env,data);
+    }else{
+      $('.validateMsg p').text('Please select Time slot to confirm the appointment!');
     }
   });
 
@@ -190,6 +183,7 @@ $(document).ready(function () {
       $(".wtbutton").hide();
     }
   });
+
 });
 
 function confirmAppoint(env, data) {
@@ -211,31 +205,19 @@ function confirmAppoint(env, data) {
       result = JSON.parse(result);
       console.log("==res1==", result);
       $(".loader").hide();
-      $("#successImg").show();
-      var retDate = moment(
-        result.ServiceAppointment.ArrivalWindowStartTime
-      ).format("dddd, MMMM D, YYYY");
-      var retStartTime = moment(
-        result.ServiceAppointment.ArrivalWindowStartTime
-      ).format("HH:mm");
-      var retEndTime = moment(
-        result.ServiceAppointment.ArrivalWindowEndTime
-      ).format("HH:mm");
-      var msg =
-        "The appointment is scheduled from " +
-        retDate +
-        " " +
-        retStartTime +
-        " to " +
-        retEndTime;
-      $(".finalMsg").text(msg);
+      $('#successImg').show();
+      var retDate = moment(result.ServiceAppointment.ArrivalWindowStartTime).format('dddd, MMMM D, YYYY');
+      var retStartTime = moment(result.ServiceAppointment.ArrivalWindowStartTime).format('HH:mm');
+      var retEndTime = moment(result.ServiceAppointment.ArrivalWindowEndTime).format('HH:mm');
+      var msg = 'The appointment is scheduled from '+retDate+' '+retStartTime+' to '+retEndTime;
+      $('.finalMsg').text(msg);
     },
     error: function (err) {
       console.log("==err==", JSON.parse(err.responseText));
       var msg = JSON.parse(err.responseText).message;
-      $(".finalMsg").text(msg);
+      $('.finalMsg').text(msg);
       $(".loader").hide();
-      $("#errorImg").show();
+      $('#errorImg').show();
     },
   });
 }
@@ -261,14 +243,13 @@ function showWtSlot() {
 }
 
 function selectSlot(event) {
-  let index = $(event).data("index");
-  $(".time_slot_list li").removeClass("tsactive");
-  $(event).addClass("tsactive");
-  appStartDateTime =
-    $(event).data("date") + " " + $(event).data("start") + ":00";
-  appEndDateTime = $(event).data("date") + " " + $(event).data("end") + ":00";
-  serviceId = $(event).data("sid");
-  console.log(appStartDateTime + "  " + appEndDateTime + "  " + serviceId);
+  let index = $(event).data('index');
+  $('.time_slot_list li').removeClass('tsactive');
+  $(event).addClass('tsactive');
+  appStartDateTime = $(event).data('date') + ' ' + $(event).data('start')+':00';
+  appEndDateTime = $(event).data('date') + ' ' + $(event).data('end')+':00';
+  serviceId = $(event).data('sid');
+  console.log(appStartDateTime+'  '+appEndDateTime+'  '+serviceId);
 }
 
 function getAppoint(env, data) {
@@ -291,25 +272,16 @@ function getAppoint(env, data) {
       console.log("==res==", result);
       serviceId = result.ServiceId ? result.ServiceId : null;
       var TimeSlots = result.TimeSlots ? result.TimeSlots : [];
-      var timeslotjson = [];
-      var indv = 0;
-      var slotsHtml = "";
-      if (TimeSlots) {
-        $("#confirm_appoint").show();
+      var timeslotjson = [];var indv = 0; var slotsHtml = '';
+      if(TimeSlots){
+        $('#confirm_appoint').show();
         for (let key in TimeSlots) {
           var datev = moment(key).format("YYYY-MM-DD");
           var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
           var tsinloop = [];
-          slotsHtml +=
-            '<div class="time-section-main timeslotloop" data-wtd="' +
-            dateWTBind[datev] +
-            '" key="' +
-            key +
-            '">\
+          slotsHtml += '<div class="time-section-main timeslotloop" data-wtd="'+dateWTBind[datev]+'" key="'+key+'">\
                           <div class="time-selection">\
-                              <h4>' +
-            displaydatev +
-            '</h4>\
+                              <h4>'+displaydatev+'</h4>\
                           </div>\
                           <div class="choose-time">\
                                         <ul class="time_slot_list">';
@@ -321,54 +293,35 @@ function getAppoint(env, data) {
               var endv = split[1].replace(":00.000Z", "");
               var sidv = split[2];
               //tsinloop.push({ ind: indv, start: startv, end: endv, sid: sidv });
-              slotsHtml +=
-                '<li key="' +
-                indv +
-                '" onclick="selectSlot(this)" data-index="' +
-                indv +
-                '"\
-													data-date="' +
-                datev +
-                '" data-start="' +
-                startv +
-                '" data-end="' +
-                endv +
-                '" data-sid="' +
-                serviceId +
-                '">\
-													' +
-                startv +
-                " - " +
-                endv +
-                "</li>";
+              slotsHtml += '<li key="'+indv+'" onclick="selectSlot(this)" data-index="'+indv+'"\
+													data-date="'+datev+'" data-start="'+startv+'" data-end="'+endv+'" data-sid="'+serviceId+'">\
+													'+startv+' - '+endv+'</li>';
             }
-          } else {
-            slotsHtml += "<li>No Slots Available!</li>";
+          }else{
+            slotsHtml += '<li>No Slots Available!</li>';
           }
           // timeslotjson.push({date: datev,displayDate: displaydatev,cssclass: dateWTBind[datev],timeslots: tsinloop});
-          slotsHtml += "</ul>\
+          slotsHtml += '</ul>\
                   </div>\
-                </div>";
+                </div>';
         }
-      } else {
-        slotsHtml =
-          '<div class="no_params" style="text-align: center;">\
+      }else{
+        slotsHtml = '<div class="no_params" style="text-align: center;">\
           <p><h2>No Time Slots!</h2></p>\
         </div>';
-        $("#confirm_appoint").hide();
+        $('#confirm_appoint').hide();
       }
       $(".loader").hide();
-      $("#slotsArea").html(slotsHtml);
+      $('#slotsArea').html(slotsHtml);
     },
     error: function (err) {
       console.log("==err==", err);
       $(".loader").hide();
-      $("#slotsArea").html(
-        '<div class="no_params" style="text-align: center;">\
+      $('#slotsArea').html('<div class="no_params" style="text-align: center;">\
         <p><h2>No Time Slots!</h2></p>\
-      </div>'
-      );
-      $("#confirm_appoint").hide();
+      </div>');
+      $('#confirm_appoint').hide();
+
     },
   });
 }
