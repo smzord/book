@@ -141,8 +141,14 @@ $(document).ready(function () {
   });
 
   $("#confirm_appoint").click(function () {
-    $("#section2").hide(); $("#section3").show();
     if (serviceId!=null && appStartDateTime != null && appEndDateTime != null) {
+      $(".loader").show();
+      $("#section2").hide(); $("#section3").show();
+      var data = {
+        "serviceId":serviceId,
+        "startTime":appStartDateTime,
+        "endTime":appEndDateTime
+      };
       confirmAppoint(env,data);
     }else{
       $('.validateMsg p').text('Please select Time slot to confirm the appointment!');
@@ -158,7 +164,44 @@ $(document).ready(function () {
       $(".wtbutton").hide();
     }
   });
+
 });
+
+function confirmAppoint(env, data) {
+  $.ajax({
+    async: true,
+    crossDomain: false,
+    url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + env,
+      "cache-control": "no-cache",
+    },
+    data: JSON.stringify({
+      opName: "Schedule Appointment",
+      customerData: JSON.stringify(data),
+    }),
+    success: function (result) {
+      result = JSON.parse(result);
+      console.log("==res1==", result);
+      $(".loader").hide();
+      $('#successImg').show();
+      var retDate = moment(result.ServiceAppointment.ArrivalWindowStartTime).format('dddd, MMMM D, YYYY');
+      var retStartTime = moment(result.ServiceAppointment.ArrivalWindowStartTime).format('HH:mm');
+      var retEndTime = moment(result.ServiceAppointment.ArrivalWindowEndTime).format('HH:mm');
+      var msg = 'The appointment is scheduled from '+retDate+' '+retStartTime+' to '+retEndTime;
+      $('.finalMsg').text(msg);
+    },
+    error: function (err) {
+      console.log("==err==", JSON.parse(err.responseText));
+      var msg = JSON.parse(err.responseText).message;
+      $('.finalMsg').text(msg);
+      $(".loader").hide();
+      $('#errorImg').show();
+    },
+  });
+}
 
 //show all time slots card
 function showAll() {
@@ -208,10 +251,11 @@ function getAppoint(env, data) {
     success: function (result) {
       result = JSON.parse(result);
       console.log("==res==", result);
-      serviceId = result.ServiceId;
+      serviceId = result.ServiceId ? result.ServiceId : null;
       var TimeSlots = result.TimeSlots ? result.TimeSlots : [];
       var timeslotjson = [];var indv = 0; var slotsHtml = '';
       if(TimeSlots){
+        $('#confirm_appoint').show();
         for (let key in TimeSlots) {
           var datev = moment(key).format("YYYY-MM-DD");
           var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
