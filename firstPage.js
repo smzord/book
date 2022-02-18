@@ -109,7 +109,7 @@ $(document).ready(function () {
       $('.wtbutton').hide();
     }
     var data = JSON.stringify({
-      "customerId":myparams.Id,
+      "customerId":myparams.id,
       "dt":thisdate,
       "workTypeId":workType,
       "lati":lati,
