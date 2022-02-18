@@ -9,16 +9,28 @@ var workType = "";
 var workTypeNDays;
 var appStartDateTime;
 var appEndDateTime;
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function success(pos) {
+  var crd = pos.coords;
+  lati = crd.latitude;
+  logi = crd.longitude;
+  console.log('Your current position is:');
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
 $(document).ready(function () {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      lati = position.coords.latitude;
-      logi = position.coords.longitude;
-      console.log("==position.coords==" + JSON.stringify(position.coords));
-    });
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
+  
+  navigator.geolocation.getCurrentPosition(success, error, options);
   $("#date").val(moment().format("YYYY-MM-DD"));
   console.log(env);
   console.log(lati);
