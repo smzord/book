@@ -115,6 +115,7 @@ $(document).ready(function () {
       "lati":lati,
       "logi":logi,
     });
+    console.log('==data=='+data);
     if (myparams.id != null && thisdate != null) {
       getAppoint(env,data);
     }
