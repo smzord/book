@@ -7,6 +7,8 @@ var env = getCookie("env");
 var dateWTBind = [];
 var workType = "";
 var workTypeNDays;
+var appStartDateTime;
+var appEndDateTime;
 $(document).ready(function () {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -135,13 +137,16 @@ $(document).ready(function () {
   });
 
   $("#edit").click(function () {
-    $("#section1").show();
-    $("#section2").hide();
+    $("#section1").show(); $("#section2").hide();
   });
 
   $("#confirm_appoint").click(function () {
-    $("#section2").hide();
-    $("#section3").show();
+    $("#section2").hide(); $("#section3").show();
+    if (serviceId!=null && appStartDateTime != null && appEndDateTime != null) {
+      confirmAppoint(env,data);
+    }else{
+      $('.validateMsg p').text('Please select Time slot to confirm the appointment!');
+    }
   });
 
   $("#worktype").change(function () {
@@ -175,6 +180,16 @@ function showWtSlot() {
   $('div[data-wtd="dayafterwt"]').show();
 }
 
+function selectSlot(event) {
+  let index = $(event).data('index');
+  $('.time_slot_list li').removeClass('tsactive');
+  $(event).addClass('tsactive');
+  appStartDateTime = $(event).data('date') + ' ' + $(event).data('start')+':00';
+  appEndDateTime = $(event).data('date') + ' ' + $(event).data('end')+':00';
+  serviceId = $(event).data('sid');
+  console.log(appStartDateTime+'  '+appEndDateTime+'  '+serviceId);
+}
+
 function getAppoint(env, data) {
   $.ajax({
     async: true,
@@ -206,7 +221,7 @@ function getAppoint(env, data) {
                               <h4>'+displaydatev+'</h4>\
                           </div>\
                           <div class="choose-time">\
-                                        <ul>';
+                                        <ul class="time_slot_list">';
           if (Array.isArray(TimeSlots[key])) {
             for (let k2 in TimeSlots[key]) {
               indv++;
@@ -215,15 +230,14 @@ function getAppoint(env, data) {
               var endv = split[1].replace(":00.000Z", "");
               var sidv = split[2];
               //tsinloop.push({ ind: indv, start: startv, end: endv, sid: sidv });
-              slotsHtml += '<li key="'+indv+'" onclick="selectSlot()" data-index="'+indv+'"\
-													data-date="'+datev+'" data-start="'+startv+'" data-end="'+endv+'" data-sid="'+sidv+'">\
+              slotsHtml += '<li key="'+indv+'" onclick="selectSlot(this)" data-index="'+indv+'"\
+													data-date="'+datev+'" data-start="'+startv+'" data-end="'+endv+'" data-sid="'+serviceId+'">\
 													'+startv+' - '+endv+'</li>';
             }
           }else{
             slotsHtml += '<li>No Slots Available!</li>';
           }
           // timeslotjson.push({date: datev,displayDate: displaydatev,cssclass: dateWTBind[datev],timeslots: tsinloop});
-          console.log(timeslotjson);
           slotsHtml += '</ul>\
                   </div>\
                 </div>';

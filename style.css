@@ -11,6 +11,13 @@
 .cname{
   text-transform: capitalize;
 }
+.time_slot_list li:hover {
+  background: #c0e2ff;
+  /* transition: 1s ease background; */
+}
+.tsactive{
+  background: #c0e2ff;
+}
 .loader img{
     width: 70px;
 }
