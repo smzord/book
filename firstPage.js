@@ -6,6 +6,7 @@ var myparams = getQueryParameters();
 var env = getCookie("env");
 var dateWTBind = [];
 var workType = "";
+var dayafterwt = '';
 var workTypeNDays;
 var appStartDateTime;
 var appEndDateTime;
@@ -123,11 +124,9 @@ $(document).ready(function () {
     var firstday = moment(thisdate).format("YYYY-MM-DD");
     var dayafter = moment(thisdate).add(1, "days").format("YYYY-MM-DD");
     if (workTypeNDays != null) {
-      var dayafterwt = moment(thisdate)
-        .add(workTypeNDays, "days")
-        .format("YYYY-MM-DD");
+      dayafterwt = moment(thisdate).add(workTypeNDays, "days").format("YYYY-MM-DD");
     } else {
-      var dayafterwt = "";
+      dayafterwt = "";
     }
     dateWTBind[firstday] = "firstday";
     dateWTBind[dayafter] = "dayafter";
@@ -277,6 +276,8 @@ function getAppoint(env, data) {
         $('#confirm_appoint').show();
         for (let key in TimeSlots) {
           var datev = moment(key).format("YYYY-MM-DD");
+          console.log('==dayafterwt=='+dayafterwt);
+          if(dayafterwt!=datev){ $('.wtbutton').hide(); }else{ $('.wtbutton').show(); }
           var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
           var tsinloop = [];
           slotsHtml += '<div class="time-section-main timeslotloop" data-wtd="'+dateWTBind[datev]+'" key="'+key+'">\
