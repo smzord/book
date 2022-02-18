@@ -113,8 +113,8 @@ $(document).ready(function () {
         "customerId":myparams.id,
         "dt":thisdate,
         "workTypeId":workType,
-        "lati":lati,
-        "logi":logi,
+        "lati":lati.toString(),
+        "logi":logi.toString(),
       });
       console.log('==data=='+data);
       getAppoint(env,data);
