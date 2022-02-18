@@ -6,7 +6,7 @@ $(document).ready(function () {
     navigator.geolocation.getCurrentPosition(function (position) {
       lati = position.coords.latitude;
       logi = position.coords.longitude;
-      console.log('==position.coords=='+position.coords);
+      console.log('==position.coords=='+JSON.stringify(position.coords));
     });
   } else {
     console.log("Geolocation is not supported by this browser.");
