@@ -108,15 +108,15 @@ $(document).ready(function () {
     }else{
       $('.wtbutton').hide();
     }
-    var data = JSON.stringify({
-      "customerId":myparams.id,
-      "dt":thisdate,
-      "workTypeId":workType,
-      "lati":lati,
-      "logi":logi,
-    });
-    console.log('==data=='+data);
     if (myparams.id != null && thisdate != null) {
+      var data = JSON.stringify({
+        "customerId":myparams.id,
+        "dt":thisdate,
+        "workTypeId":workType,
+        "lati":lati,
+        "logi":logi,
+      });
+      console.log('==data=='+data);
       getAppoint(env,data);
     }
   });
