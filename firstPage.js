@@ -185,7 +185,7 @@ function getAppoint(env,data) {
       customerData: JSON.stringify(data),
     }),
     success: function (res) {
-      res = JSON.parse(res);
+      //res = JSON.parse(res);
       console.log("==res==", res);
       $(".loader").hide();
     },
