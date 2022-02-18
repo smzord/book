@@ -124,9 +124,11 @@ function initialFirst(updateData,env){
       address = address!='' ? 'at '+address  :'';
       $('.cname').text(res.Name);
       $('.address').text(address);
+      $('.loader').hide();
     },
     error: function (err) {
       console.log("==err==", err);
+      $('.loader').hide();
     },
   });
 
