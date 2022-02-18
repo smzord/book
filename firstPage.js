@@ -193,31 +193,39 @@ function getAppoint(env, data) {
     success: function (result) {
       result = JSON.parse(result);
       console.log("==res==", result);
-      var timeslotjson = [];
-      var indv = 0;
-      for (let key in result) {
-        var datev = moment(key).format("YYYY-MM-DD");
-        var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
-        var tsinloop = [];
-        if (Array.isArray(result[key])) {
-          for (let k2 in result[key]) {
-            indv++;
-            var split = result[key][k2].split("---");
-            var startv = split[0].replace(":00.000Z", "");
-            var endv = split[1].replace(":00.000Z", "");
-            var sidv = split[2];
-            tsinloop.push({ ind: indv, start: startv, end: endv, sid: sidv });
+      serviceId = result.ServiceId;
+      var TimeSlots = result.TimeSlots ? result.TimeSlots : [];
+      var timeslotjson = [];var indv = 0; var slotsHtml = '';
+      if(TimeSlots){
+        for (let key in TimeSlots) {
+          var datev = moment(key).format("YYYY-MM-DD");
+          var displaydatev = moment(key).format("dddd, MMMM D, YYYY");
+          var tsinloop = [];
+          if (Array.isArray(TimeSlots[key])) {
+            for (let k2 in TimeSlots[key]) {
+              indv++;
+              var split = TimeSlots[key][k2].split("---");
+              var startv = split[0].replace(":00.000Z", "");
+              var endv = split[1].replace(":00.000Z", "");
+              var sidv = split[2];
+              tsinloop.push({ ind: indv, start: startv, end: endv, sid: sidv });
+            }
           }
+          timeslotjson.push({
+            date: datev,
+            displayDate: displaydatev,
+            cssclass: dateWTBind[datev],
+            timeslots: tsinloop,
+          });
+          console.log(timeslotjson);
         }
-        timeslotjson.push({
-          date: datev,
-          displayDate: displaydatev,
-          cssclass: dateWTBind[datev],
-          timeslots: tsinloop,
-        });
-        console.log(timeslotjson);
+      }else{
+        slotsHtml = '<div class="no_params" style="text-align: center;">\
+          <p><h2>No Time Slots!</h2></p>\
+        </div>';
       }
       $(".loader").hide();
+      $('#slotsArea').html(slotsHtml);
     },
     error: function (err) {
       console.log("==err==", err);

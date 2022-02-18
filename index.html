@@ -47,7 +47,7 @@
                                 <button type="button" id="edit"><img src="img/pencil.png"> </button>
                             </div>
                             <div class="main-div-heading">
-                                <h2>Aaron Applegate</h2>
+                                <h2 class="cname">Aaron Applegate</h2>
                             </div>                        
                             <div class="TopBtn">
                                 <button onclick="showAll()">Show All</button>
@@ -55,17 +55,19 @@
                                 <button onclick="showDayAfter()">Day After Selected</button>
                                 <button onclick="showWtSlot()" class="wtbutton" style="display: none;">2 Days After Selected</button>
                             </div>
-                            <div class="time-section-main timeslotloop">
-                                <div class="time-selection">
-                                    <h4>Tuesday, February 15,2022</h4>
-                                </div>
-                                <div class="choose-time">
-                                    <ul>
-                                    <li>11:00 - 13:00</li>
-                                    <li>13:00 - 15:30</li>
-                                    <li>07:00 - 09:00</li>
-                                    <li>09:00 - 11:00</li>
-                                    </ul>
+                            <div id="slotsArea">
+                                <div class="time-section-main timeslotloop">
+                                    <div class="time-selection">
+                                        <h4>Tuesday, February 15,2022</h4>
+                                    </div>
+                                    <div class="choose-time">
+                                        <ul>
+                                            <li>11:00 - 13:00</li>
+                                            <li>13:00 - 15:30</li>
+                                            <li>07:00 - 09:00</li>
+                                            <li>09:00 - 11:00</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <button type="button" class="appointBtn" id="confirm_appoint">Confirm Appointments</button>
@@ -74,12 +76,13 @@
                     <div id="section3">
                         <div class="main-div">
                             <div class="main-div-heading">
-                                <h2>Aaron Applegate</h2>
+                                <h2 class="cname">Aaron Applegate</h2>
                             </div>
                             <div class="responseImg">
-                                <img src="img/success.gif" alt="">
+                                <img src="img/success.gif" alt="" id="successImg" style="display: none;">
+                                <img src="img/error.gif" alt="" id="errorImg" style="display: none;">
                             </div>
-                            <p>The appointment is scheduled from [Schedule date] [Schedule Time] to [end of Schedule Time]</p>
+                            <p class="finalMsg">The appointment is scheduled from [Schedule date] [Schedule Time] to [end of Schedule Time]</p>
                         </div> 
                     </div>
                 </div>
