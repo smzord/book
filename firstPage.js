@@ -9,6 +9,7 @@ var workType = "";
 var dayafter = '';
 var dayafterwt = '';
 var workTypeNDays;
+var selectDate;
 var appStartDateTime;
 var appEndDateTime;
 var options = {
@@ -163,11 +164,20 @@ $(document).ready(function () {
     if (serviceId!=null && appStartDateTime != null && appEndDateTime != null) {
       $(".loader").show();
       $("#section2").hide(); $("#section3").show();
-      var data = {
-        "serviceId":serviceId,
-        "startTime":appStartDateTime,
-        "endTime":appEndDateTime
-      };
+      // var data = {
+        //   "serviceId":serviceId,
+        //   "startTime":appStartDateTime,
+        //   "endTime":appEndDateTime
+        // };
+        var data = {
+          "customerId": myparams.id,
+          "dt": selectDate,
+          "workTypeId": workType,
+          "lati": lati.toString(),
+          "logi": logi.toString(),
+          "startTime":appStartDateTime,
+          "endTime":appEndDateTime
+        };
       confirmAppoint(env,data);
     }else{
       $('.validateMsg p').text('Please select Time slot to confirm the appointment!');
@@ -187,6 +197,7 @@ $(document).ready(function () {
 });
 
 function confirmAppoint(env, data) {
+
   $.ajax({
     async: true,
     crossDomain: false,
@@ -246,6 +257,7 @@ function selectSlot(event) {
   let index = $(event).data('index');
   $('.time_slot_list li').removeClass('tsactive');
   $(event).addClass('tsactive');
+  selectDate = $(event).data('date');
   appStartDateTime = $(event).data('date') + ' ' + $(event).data('start')+':00';
   appEndDateTime = $(event).data('date') + ' ' + $(event).data('end')+':00';
   serviceId = $(event).data('sid');
