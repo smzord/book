@@ -164,20 +164,20 @@ $(document).ready(function () {
     if (serviceId!=null && appStartDateTime != null && appEndDateTime != null) {
       $(".loader").show();
       $("#section2").hide(); $("#section3").show();
-      // var data = {
-        //   "serviceId":serviceId,
-        //   "startTime":appStartDateTime,
-        //   "endTime":appEndDateTime
-        // };
         var data = {
-          "customerId": myparams.id,
-          "dt": selectDate,
-          "workTypeId": workType,
-          "lati": lati.toString(),
-          "logi": logi.toString(),
+          "serviceId":serviceId,
           "startTime":appStartDateTime,
           "endTime":appEndDateTime
         };
+        // var data = {
+        //   "customerId": myparams.id,
+        //   "dt": selectDate,
+        //   "workTypeId": workType,
+        //   "lati": lati.toString(),
+        //   "logi": logi.toString(),
+        //   "startTime":appStartDateTime,
+        //   "endTime":appEndDateTime
+        // };
       confirmAppoint(env,data);
     }else{
       $('.validateMsg p').text('Please select Time slot to confirm the appointment!');
