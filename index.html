@@ -27,13 +27,14 @@
                                         <div class="form-group">
                                             <label for="date">Appointment Date</label>
                                             <input type="date" class="form-control" id="date" placeholder="Feb 15, 2022" name="date" required>
+                                            <small id="errDate"></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="work">Work Type</label>
                                             <select class="form-control" id="worktype">
                                                 <option value="" selected>Select...</option>
-                                                
                                             </select>
+                                            <small id="errWt"></small>
                                         </div>
                                     </div>
                                     <button type="button" class="appointBtn" id="get_appoint">Get Appointments</button>
