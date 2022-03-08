@@ -118,41 +118,52 @@ $(document).ready(function () {
   }
 
   $("#get_appoint").click(function () {
-    $(".loader").show();
-    $("#section1").hide();
-    $("#section2").show();
     var thisdate = $("#date").val();
-    console.log("==thisdate===" + thisdate);
-    var firstday = moment(thisdate).format("YYYY-MM-DD");
-    dayafter = moment(thisdate).add(1, "days").format("YYYY-MM-DD");
-    if (workTypeNDays != null) {
-      dayafterwt = moment(thisdate).add(workTypeNDays, "days").format("YYYY-MM-DD");
-    } else {
-      dayafterwt = "";
-    }
-    dateWTBind[firstday] = "firstday";
-    dateWTBind[dayafter] = "dayafter";
-    dateWTBind[dayafterwt] = "dayafterwt";
-    workTypeNDays = mapIdDays[workType];
-    console.log("===workTypeNDays===" + workTypeNDays);
-    console.log("===mapIdDays===" + JSON.stringify(mapIdDays));
-    if (workType != "") {
-      $(".wtbutton")
-        .text(mapIdDays[workType] + " DAYS AFTER SELECTED")
-        .show();
-    } else {
-      $(".wtbutton").hide();
-    }
-    if (myparams.id != null && thisdate != null) {
-      var data = {
-        customerId: myparams.id,
-        dt: thisdate,
-        workTypeId: workType,
-        lati: lati.toString(),
-        logi: logi.toString(),
-      };
-      console.log("==data==" + data);
-      getAppoint(env, data);
+    if(thisdate!='' && workType!=''){
+      $(".loader").show();
+      $("#section1").hide();
+      $("#section2").show();
+      console.log("==thisdate===" + thisdate);
+      var firstday = moment(thisdate).format("YYYY-MM-DD");
+      dayafter = moment(thisdate).add(1, "days").format("YYYY-MM-DD");
+      if (workTypeNDays != null) {
+        dayafterwt = moment(thisdate).add(workTypeNDays, "days").format("YYYY-MM-DD");
+      } else {
+        dayafterwt = "";
+      }
+      dateWTBind[firstday] = "firstday";
+      dateWTBind[dayafter] = "dayafter";
+      dateWTBind[dayafterwt] = "dayafterwt";
+      workTypeNDays = mapIdDays[workType];
+      console.log("===workTypeNDays===" + workTypeNDays);
+      console.log("===mapIdDays===" + JSON.stringify(mapIdDays));
+      if (workType != "") {
+        $(".wtbutton")
+          .text(mapIdDays[workType] + " DAYS AFTER SELECTED")
+          .show();
+      } else {
+        $(".wtbutton").hide();
+      }
+      if (myparams.id != null && thisdate != null) {
+        var data = {
+          customerId: myparams.id,
+          dt: thisdate,
+          workTypeId: workType,
+          lati: lati.toString(),
+          logi: logi.toString(),
+        };
+        console.log("==data==" + data);
+        getAppoint(env, data);
+      }
+      $('#errDate').text('');
+      $('#errWt').text('');
+
+    }else{
+      if(thisdate==''){
+        $('#errDate').text('Date is required!');
+      }if(workType==''){
+        $('#errWt').text('Worktype is required!');
+      }
     }
   });
 
