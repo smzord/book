@@ -315,9 +315,9 @@ function getAppoint(env, data) {
               indv++;
               var split = TimeSlots[key][k2].split("---");
               var startv = split[0].replace(":00.000Z", "");
-              var startv12 = moment(datev+' '+startv).format("hh:mm a");
+              var startv12 = moment(datev+' '+startv).format("LT");
               var endv = split[1].replace(":00.000Z", "");
-              var endv12 = moment(datev+' '+endv).format("hh:mm a");
+              var endv12 = moment(datev+' '+endv).format("LT");
               var sidv = split[2];
               //tsinloop.push({ ind: indv, start: startv, end: endv, sid: sidv });
               slotsHtml += '<li key="'+indv+'" onclick="selectSlot(this)" data-index="'+indv+'"\
