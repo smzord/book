@@ -38,7 +38,8 @@ $(document).ready(function () {
   console.log(env);
   console.log(lati);
   console.log(logi);
-  if (myparams.id != null && myparams.phone != null && myparams.fname != null) {
+  //if (myparams.id != null && myparams.phone != null && myparams.fname != null) {
+  if (myparams.id != null) {
     var updateData = {};
     updateData.lati = lati;
     updateData.logi = logi;
