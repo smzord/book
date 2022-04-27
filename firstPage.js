@@ -1,5 +1,6 @@
 var lati = "26.912434";
 var logi = "75.787270";
+var baseUrl = 'https://partial-welink.cs213.force.com/';
 var mapIdDays = {};
 var serviceId = "";
 var myparams = getQueryParameters();
@@ -75,7 +76,7 @@ $(document).ready(function () {
       $.ajax({
         async: true,
         crossDomain: false,
-        url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+        url: baseUrl+"services/apexrest/scheduleServiceAppointment",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +107,7 @@ $(document).ready(function () {
 
     //"opName": “Update Customer",
     if (env != null && env != "") {
-      initialFirst(updateData, env);
+      initialFirst(baseUrl,updateData, env);
     }
   } else {
     $(".loader").hide();
@@ -154,7 +155,7 @@ $(document).ready(function () {
           logi: logi.toString(),
         };
         console.log("==data==" + data);
-        getAppoint(env, data);
+        getAppoint(baseUrl,env, data);
       }
       $('#errDate').text('');
       $('#errWt').text('');
@@ -190,7 +191,7 @@ $(document).ready(function () {
           "startTime":appStartDateTime,
           "endTime":appEndDateTime
         };
-      confirmAppoint(env,data);
+      confirmAppoint(baseUrl,env,data);
     }else{
       $('.validateMsg p').text('Please select Time slot to confirm the appointment!');
     }
@@ -208,12 +209,12 @@ $(document).ready(function () {
 
 });
 
-function confirmAppoint(env, data) {
+function confirmAppoint(baseUrl,env, data) {
 
   $.ajax({
     async: true,
     crossDomain: false,
-    url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+    url: baseUrl+"services/apexrest/scheduleServiceAppointment",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -276,11 +277,11 @@ function selectSlot(event) {
   console.log(appStartDateTime+'  '+appEndDateTime+'  '+serviceId);
 }
 
-function getAppoint(env, data) {
+function getAppoint(baseUrl,env, data) {
   $.ajax({
     async: true,
     crossDomain: false,
-    url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+    url: baseUrl+"services/apexrest/scheduleServiceAppointment",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -354,11 +355,11 @@ function getAppoint(env, data) {
   });
 }
 
-function initialFirst(updateData, env) {
+function initialFirst(baseUrl,updateData, env) {
   $.ajax({
     async: true,
     crossDomain: false,
-    url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+    url: baseUrl+"services/apexrest/scheduleServiceAppointment",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -401,7 +402,7 @@ function initialFirst(updateData, env) {
   $.ajax({
     async: true,
     crossDomain: false,
-    url: "https://partial-welink1.cs197.force.com/services/apexrest/scheduleServiceAppointment",
+    url: baseUrl+"services/apexrest/scheduleServiceAppointment",
     method: "GET",
     headers: {
       "Content-Type": "application/json",
